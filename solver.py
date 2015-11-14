@@ -26,21 +26,25 @@ def main():
                 exit_command = exit_command.replace('.000%', '')
                 exit_command = exit_command.replace(' ', '')#if a space occur
                 values.append(int(exit_command))
-                print exit_command #verify if the exit matching with our idea
+                #print exit_command #verify if the exit matching with our idea
                 #end of j for
             values.sort()
             medians[k].append(values[2]) #add the medians of all configuration
+            values = []
 
-    for combinations in medians:
-        max_medians.append(max(combinations))
+
+    for indexcomb in COMBINATIONS:
+        max_medians.append(max(medians[indexcomb]))
+
     best_configuration = max_medians.index(max(max_medians))
     print 'best combination is ' + str(1) + ' ' \
         + str(COMBINATIONS[best_configuration])
     print 'remove old log.txt'
     subprocess.check_output('rm log.txt', shell=True)
     print 'launching final training'
-    subprocess.check_output('./nnet train.txt test.txt -hl ' + str(1) \
-        + str(COMBINATIONS[best_configuration]) + ' -va validation.txt', shell=True) 
+    subprocess.check_output('./nnet train.txt test.txt -hl ' + str(1) + \
+        ' ' + str(COMBINATIONS[best_configuration]) + ' -va validation.txt', shell=True) 
     print 'now check the log.txt baby ;)'
+
 if __name__ == '__main__':
     main()
