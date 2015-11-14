@@ -18,7 +18,7 @@ def main():
             for j in range(0, 5): #number of the same command to repeate (5)
                 bash_command = "./nnet" + " trainFold" + str(i) + ".txt" + \
                        " testFold" + str(i) + ".txt" + " -hl " +  str(1) \
-                       + " "  + str(COMBINATIONS[k]) + " | grep Accuracy"
+                       + " "  + str(k) + " | grep Accuracy"
                 exit_command = subprocess.check_output(bash_command, \
                                                 shell=True)
                 #parsing the exit command
